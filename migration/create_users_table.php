@@ -1,6 +1,8 @@
 <?php
-    // Include config file
-    require_once '../config/database.php';
+    // Include config class
+    require_once '../config/Database.php';
+    $database = new Database();
+    $link = $database->getLink();
 
     if ($link) {
         $sql = "CREATE TABLE IF NOT EXISTS `users` (
@@ -17,7 +19,7 @@
             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
           
-        if(mysqli_query($link, $sql)){
+        if ($result = $link->query($sql)) {
             echo 'Users table created successfully.';
         } else {
             echo 'Users table did not created. Please verify your configuration and try again.';
